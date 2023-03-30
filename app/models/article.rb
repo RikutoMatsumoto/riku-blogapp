@@ -16,4 +16,13 @@ class Article < ApplicationRecord
   validates :content, presence: true
   validates :content, length: { minimum: 10 }
   validates :content, uniqueness: true
+
+  validate :validate_title_and_content_length
+
+
+  private
+  def validate_title_and_content_length
+    char_count = self.title.length + self.content.length
+    errors.add(:content, '20文字以上で!') unless char_count > 20
+  end
 end
